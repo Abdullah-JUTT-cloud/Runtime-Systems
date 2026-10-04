@@ -8,10 +8,12 @@
   },
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build && node scripts/generate-routes.mjs",
+    "build": "npm run sync:knowledge && vite build && node scripts/generate-routes.mjs",
     "preview": "vite preview --host 0.0.0.0",
-    "typecheck": "tsc --noEmit",
-    "test": "npm run build && node --test tests/build-output.test.mjs"
+    "typecheck": "tsc --noEmit && tsc --noEmit -p functions/tsconfig.json",
+    "test": "npm run build && node --test \"tests/*.test.mjs\"",
+    "sync:knowledge": "node scripts/sync-knowledge.mjs",
+    "pages:dev": "npm run sync:knowledge && npm run build && wrangler pages dev dist"
   },
   "dependencies": {
     "@fontsource/ibm-plex-mono": "^5.1.1",
@@ -28,11 +30,13 @@
     "three": "^0.180.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "5.20261004.1",
     "@types/react": "18.3.31",
     "@types/react-dom": "18.3.7",
     "@vitejs/plugin-react": "5.2.0",
     "typescript": "5.8.3",
-    "vite": "7.3.6"
+    "vite": "7.3.6",
+    "wrangler": "4.147.0"
   },
   "overrides": {
     "electron-to-chromium": "1.5.395"

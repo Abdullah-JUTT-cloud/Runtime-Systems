@@ -1,7 +1,8 @@
-import { CalendarDays, Mail, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-react";
+import { CalendarDays, Mail, MapPin, MessageCircle, Phone, Radar, ShieldCheck } from "lucide-react";
 import { Button, PageHeader, SectionLabel, TextLink } from "../components/Primitives";
 import { SEO } from "../components/SEO";
 import { site } from "../data/site";
+import { openSonar } from "../components/sonar/sonarOpen";
 
 const phoneDisplay = "+92 321 4194045";
 const whatsappHref = "https://wa.me/923214194045";
@@ -52,6 +53,10 @@ export function Contact() {
             <Button href="/start-project">Start a Project</Button>
             <Button href="/process" secondary>See Our Process</Button>
           </div>
+          <button type="button" className="button sonar-cta" onClick={openSonar}>
+            <span>Plan your project with SONAR</span>
+            <Radar size={17} />
+          </button>
         </div>
         <div className="contact-console__status" aria-label="Studio status">
           <span><i /> Studio online</span>

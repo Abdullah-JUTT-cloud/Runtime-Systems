@@ -1,0 +1,6 @@
+# Gemini API key — local development only (wrangler pages dev reads .dev.vars).
+# Copy this file to .dev.vars and fill in the value. Never commit .dev.vars.
+GEMINI_API_KEY=
+
+# Optional override; defaults to the constant in functions/api/advise.ts.
+GEMINI_MODEL=

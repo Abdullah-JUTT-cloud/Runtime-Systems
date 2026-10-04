@@ -133,3 +133,7 @@ next-env.d.ts
 *.pem
 *.key
 *.crt
+
+.dev.vars
+# Sonar test transpile cache
+.sonar-cache/

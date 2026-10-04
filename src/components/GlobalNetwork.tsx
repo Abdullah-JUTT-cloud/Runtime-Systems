@@ -219,9 +219,10 @@ export function GlobalNetwork() {
   const graticule = useMemo(() => graticuleFor(frame), [frame]);
   const viewBox = `${frame.x.toFixed(2)} ${frame.y.toFixed(2)} ${frame.width.toFixed(2)} ${frame.height.toFixed(2)}`;
 
-  /** Labels are HTML inside foreignObject, so their box is sized in rendered pixels. */
+  /** Labels are HTML inside foreignObject, so their box scales with the map; at 1:1 it
+   *  is the original 160x34 desktop box, and the tag inside stays centred on its node. */
   const labelBox = useMemo(
-    () => ({ width: Math.ceil(150 * unitsPerPx), height: Math.ceil(24 * unitsPerPx) }),
+    () => ({ width: Math.ceil(160 * unitsPerPx), height: Math.ceil(34 * unitsPerPx) }),
     [unitsPerPx],
   );
 

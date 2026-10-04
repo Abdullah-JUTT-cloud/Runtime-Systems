@@ -120,8 +120,6 @@ export function RuntimeCore() {
         <pointLight position={[1.8, 1.2, 2.4]} intensity={14} distance={9} decay={2} color="#ff4b2b" />
         <CoreAssembly />
       </Canvas>
-      <div className="core-readout core-readout--a"><span>CORE / 01</span><b>PROCESSING</b></div>
-      <div className="core-readout core-readout--b"><span>NODE / 08</span><b>SYNCHRONIZED</b></div>
     </div>
   );
 }

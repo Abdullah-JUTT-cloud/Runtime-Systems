@@ -4,6 +4,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Footer } from "./components/Footer";
 import { Navigation } from "./components/Navigation";
 import { ScrollProgress } from "./components/ScrollProgress";
+import { SonarMount } from "./components/SonarMount";
 import { useReveal } from "./hooks/useReveal";
 import { services } from "./data/services";
 import { projects } from "./data/projects";
@@ -66,6 +67,7 @@ export function App() {
         </motion.div>
       </AnimatePresence>
       {!standalone && <Footer />}
+      <SonarMount />
     </ErrorBoundary>
   );
 }

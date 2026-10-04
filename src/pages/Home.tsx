@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { ArrowDown, CheckCircle2, Globe2, Layers3, ShieldCheck, Sparkles, Workflow } from "lucide-react";
+import { ArrowDown, CheckCircle2, Globe2, Layers3, Radar, ShieldCheck, Sparkles, Workflow } from "lucide-react";
 import { ArchitectureGraph } from "../components/ArchitectureGraph";
 import { Button, SectionLabel, TextLink } from "../components/Primitives";
 import { ProjectShowcase } from "../components/ProjectShowcase";
@@ -9,6 +9,7 @@ import { GlobalNetwork } from "../components/GlobalNetwork";
 import { RuntimeFallback } from "../components/runtime/RuntimeFallback";
 import { insights } from "../data/insights";
 import { SEO } from "../components/SEO";
+import { openSonar } from "../components/sonar/sonarOpen";
 
 const RuntimeCore = lazy(() => import("../components/runtime/RuntimeCore").then((module) => ({ default: module.RuntimeCore })));
 
@@ -51,8 +52,8 @@ export function Home() {
       <SEO />
       <section className="hero">
         <div className="hero__grid" aria-hidden="true" />
-        <div className="hero__meta hero__meta--left"><span>RUNTIME SYSTEMS</span><span>ENGINEERING STUDIO</span></div>
-        <div className="hero__meta hero__meta--right"><span>LAHORE / WORLDWIDE</span><span><i /> STATUS / ONLINE</span></div>
+        {/* <div className="hero__meta hero__meta--left"><span>RUNTIME SYSTEMS</span><span>ENGINEERING STUDIO</span></div>
+        <div className="hero__meta hero__meta--right"><span>LAHORE / WORLDWIDE</span><span><i /> STATUS / ONLINE</span></div> */}
         <div className="hero__visual">
           <Suspense fallback={<RuntimeFallback />}><RuntimeCore /></Suspense>
         </div>
@@ -62,6 +63,10 @@ export function Home() {
           <div className="hero__bottom">
             <p>Intelligent products, scalable platforms, and the infrastructure that keeps them moving.</p>
             <div className="button-row"><Button href="/start-project">Start a Project</Button><Button href="/work" secondary>Explore Our Work</Button></div>
+            <button type="button" className="button button--secondary sonar-cta sonar-cta--hero" onClick={openSonar}>
+              <span>Plan your project with SONAR</span>
+              <Radar size={17} />
+            </button>
           </div>
         </div>
         <a href="#philosophy" className="scroll-cue"><ArrowDown size={15} /> SCROLL TO TRACE SYSTEM</a>
