@@ -2,7 +2,7 @@ import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
 const routes = [
-  "/work", "/services", "/solutions", "/process", "/about", "/insights", "/careers", "/contact", "/start-project",
+  "/work", "/services", "/solutions", "/process", "/about", "/insights", "/careers", "/contact", "/start-project", "/privacy-policy",
   "/services/web-engineering", "/services/mobile", "/services/ai", "/services/backend-systems", "/services/cloud-devops",
   "/work/medalert-os", "/work/ledger-north", "/work/signal-desk", "/work/dockline", "/work/cartograph", "/work/fieldnote",
 ];

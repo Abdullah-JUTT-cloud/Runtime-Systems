@@ -65,7 +65,7 @@ export function Footer() {
       </div>
       <div className="footer__mega" aria-hidden="true">Runtime Systems</div>
       <div className="container footer__bottom">
-        <span>© 2026 Runtime Systems</span>
+        <span>© 2026 Runtime Systems · <Link href="/privacy-policy" className="footer__privacy">Privacy Policy</Link></span>
         <span className="system-status"><i /> ALL SYSTEMS OPERATIONAL</span>
         <span className="footer__end">
           ENGINEERED IN LAHORE

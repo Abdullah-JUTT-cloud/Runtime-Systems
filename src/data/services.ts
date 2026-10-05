@@ -8,6 +8,8 @@ export type Service = {
   capabilities: string[];
   technologies: string[];
   problems: string[];
+  /** One supporting note per problem, same order and length. */
+  problemNotes: string[];
   accent: string;
 };
 
@@ -22,6 +24,11 @@ export const services: Service[] = [
     capabilities: ["SaaS applications", "Web platforms", "Enterprise software", "Product development", "MVP engineering"],
     technologies: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL"],
     problems: ["Unclear product architecture", "Slow iteration cycles", "Disconnected design and engineering"],
+    problemNotes: [
+      "We map the product's boundaries and data flows first, so every new feature lands on a structure that can carry it.",
+      "We set up an architecture and delivery rhythm that lets the team ship every week without reworking the foundations.",
+      "We connect design intent to implementation through a shared component and interaction system both sides can trust.",
+    ],
     accent: "#ff5a36",
   },
   {
@@ -34,6 +41,11 @@ export const services: Service[] = [
     capabilities: ["AI agents", "LLM integrations", "RAG systems", "Intelligent automation", "Computer vision", "Voice systems"],
     technologies: ["LLM APIs", "Python", "Vector search", "Evaluation pipelines", "Guardrails"],
     problems: ["Manual knowledge work", "Unreliable AI prototypes", "Unstructured internal information"],
+    problemNotes: [
+      "We identify the workflows where AI removes real toil and automate them with human oversight where decisions matter.",
+      "We turn prototypes into evaluated systems — test cases, guardrails, and fallback behavior defined before release.",
+      "We structure internal knowledge into retrieval-ready sources so AI answers from facts instead of guesses.",
+    ],
     accent: "#9ea900",
   },
   {
@@ -46,6 +58,11 @@ export const services: Service[] = [
     capabilities: ["React Native", "iOS", "Android", "Cross-platform applications", "Offline-first workflows"],
     technologies: ["React Native", "Expo", "Swift", "Kotlin", "Push infrastructure"],
     problems: ["Inconsistent cross-platform UX", "Fragile offline behavior", "Slow release workflows"],
+    problemNotes: [
+      "We build a shared interaction system so iOS and Android feel like one product without losing platform conventions.",
+      "We design sync, conflict handling, and local storage as core product features, not afterthoughts.",
+      "We stand up build, testing, and release pipelines that make app-store delivery predictable instead of painful.",
+    ],
     accent: "#3478f6",
   },
   {
@@ -58,6 +75,11 @@ export const services: Service[] = [
     capabilities: ["APIs", "Distributed systems", "Microservices", "Event-driven systems", "Real-time systems", "Database architecture"],
     technologies: ["Node.js", "Spring Boot", "PostgreSQL", "MongoDB", "Redis", "Kafka"],
     problems: ["Scaling bottlenecks", "Unclear service boundaries", "Operational instability"],
+    problemNotes: [
+      "We profile the load paths first and remove the bottlenecks that surface earliest under real traffic.",
+      "We draw service boundaries around change and data ownership, so teams can move without stepping on each other.",
+      "We add the observability and failure handling that keep incidents rare, short, and understandable.",
+    ],
     accent: "#151515",
   },
   {
@@ -70,6 +92,11 @@ export const services: Service[] = [
     capabilities: ["Docker", "CI/CD", "Cloud deployment", "Monitoring", "Infrastructure design"],
     technologies: ["Docker", "GitHub Actions", "AWS", "Observability", "Infrastructure as code"],
     problems: ["Manual deployments", "Low production visibility", "Environment drift"],
+    problemNotes: [
+      "We automate the build-to-deploy path so releases become small, frequent, and reversible.",
+      "We wire the metrics, logs, and alerts that make production behavior legible to the whole team.",
+      "We define infrastructure as code so every environment matches production by construction.",
+    ],
     accent: "#00a184",
   },
 ];

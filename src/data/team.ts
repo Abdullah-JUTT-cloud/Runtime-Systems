@@ -14,7 +14,7 @@ export type TeamMember = {
 
 export const team: TeamMember[] = [
   {
-    name: "Founder & CEO",
+    name: "Muhammad Abdullah Jutt",
     label: "Founder / CEO",
     role: "Product strategy · systems architecture · delivery leadership",
     photo: "/FounderCEO.jpeg",

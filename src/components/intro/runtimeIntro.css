@@ -1,0 +1,527 @@
+/* RUNTIME INTRO — first-visit cinematic introduction.
+   Light theme only: warm paper, graphite type, thin lines, soft shadows.
+   Accent atmosphere uses the site's cyan/blue energy + a warm signal wash;
+   interactive elements reuse the homepage's brand tokens so the intro reads
+   as the first chapter of the site, not a foreign popup. */
+
+.runtime-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 190; /* above nav (100), sonar (130), scroll-progress (140); below the custom cursor (300) */
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+/* The intro holds the stage: no scrolling underneath. */
+html.runtime-intro-open { overflow: hidden; }
+
+/* Hold the homepage hero entrance while the intro plays, so dismissing
+   replays the hero as a continuation instead of revealing a finished page. */
+html.runtime-intro-open .hero__kicker,
+html.runtime-intro-open .hero h1 span,
+html.runtime-intro-open .hero__bottom,
+html.runtime-intro-open .hero__meta,
+html.runtime-intro-open .hero__visual,
+html.runtime-intro-open .scroll-cue { animation-play-state: paused; }
+
+/* One floating experience at a time: SONAR waits for the intro to close. */
+html.runtime-intro-open .sonar-launcher,
+html.runtime-intro-open .sonar-panel,
+html.runtime-intro-open .sonar-backdrop { visibility: hidden; }
+
+/* ============ STAGE — atmospheric light backdrop ============ */
+
+.runtime-intro__stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  animation: ri-fade .45s ease both;
+}
+
+.runtime-intro__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, transparent calc(100% - 1px), var(--soft-line) 1px),
+    linear-gradient(to bottom, transparent calc(100% - 1px), var(--soft-line) 1px);
+  background-size: calc(100% / 12) 100%, 100% 22%;
+  opacity: .55;
+  -webkit-mask-image: radial-gradient(120% 95% at 50% 42%, black 35%, transparent 100%);
+  mask-image: radial-gradient(120% 95% at 50% 42%, black 35%, transparent 100%);
+}
+
+.runtime-intro__wash {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+}
+.runtime-intro__wash--cool {
+  width: 46vw; height: 46vw; left: -10vw; top: -14vw;
+  background: radial-gradient(circle, rgb(47 107 255 / 9%), transparent 65%);
+}
+.runtime-intro__wash--cyan {
+  width: 36vw; height: 36vw; right: -8vw; top: -10vw;
+  background: radial-gradient(circle, rgb(53 219 232 / 9%), transparent 65%);
+}
+.runtime-intro__wash--warm {
+  width: 50vw; height: 50vw; right: 6vw; bottom: -18vw;
+  background: radial-gradient(circle, rgb(255 75 43 / 7%), transparent 65%);
+}
+
+.runtime-intro__node {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgb(24 24 23 / 28%);
+  animation: ri-drift-a 17s ease-in-out infinite alternate;
+}
+.runtime-intro__node--0 { left: 12%; top: 22%; }
+.runtime-intro__node--1 { left: 78%; top: 16%; width: 6px; height: 6px; background: rgb(47 107 255 / 35%); animation: ri-drift-b 19s ease-in-out infinite alternate; animation-delay: -4s; }
+.runtime-intro__node--2 { left: 88%; top: 56%; width: 4px; height: 4px; background: rgb(255 75 43 / 40%); animation-duration: 14s; animation-delay: -2s; }
+.runtime-intro__node--3 { left: 16%; top: 74%; width: 6px; height: 6px; background: rgb(53 219 232 / 40%); animation: ri-drift-b 21s ease-in-out infinite alternate; animation-delay: -7s; }
+.runtime-intro__node--4 { left: 55%; top: 86%; width: 4px; height: 4px; animation-duration: 17s; animation-delay: -2s; }
+.runtime-intro__node--5 { left: 42%; top: 10%; width: 4px; height: 4px; background: rgb(24 24 23 / 22%); animation: ri-drift-b 23s ease-in-out infinite alternate; animation-delay: -9s; }
+
+/* Faint constellation — quiet network lines behind the panel. */
+.runtime-intro__constellation {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .6;
+}
+
+/* A slow diagonal light band — the stage breathes once in a while. */
+.runtime-intro__sweep {
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(115deg, transparent 42%, rgb(255 255 255 / 5%) 48%, rgb(53 219 232 / 4%) 52%, transparent 58%);
+  transform: translateX(-70%);
+  animation: ri-stage-sweep 16s ease-in-out infinite;
+}
+
+/* Warm vignette keeps the eye centered without going dark. */
+.runtime-intro__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(115% 115% at 50% 42%, transparent 62%, rgb(24 24 23 / 5%) 100%);
+}
+
+/* ============ PANEL ============ */
+
+.runtime-intro__panel {
+  position: relative;
+  width: min(680px, 100%);
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(1.5rem, 3.4vw, 2.5rem) clamp(1.25rem, 3.4vw, 2.8rem) clamp(1.1rem, 2.6vw, 1.6rem);
+  background: var(--white);
+  border: 1px solid rgb(24 24 23 / 10%);
+  border-radius: 20px;
+  box-shadow:
+    0 60px 140px -60px rgb(15 30 60 / 38%),
+    0 12px 40px -20px rgb(15 30 60 / 16%);
+  animation: ri-panel .62s cubic-bezier(.2, 1.18, .3, 1) .08s both;
+}
+
+/* Thin cyan/blue hairline along the panel's top edge — living energy. */
+.runtime-intro__panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 9%;
+  right: 9%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(47 107 255 / 42%) 30%, rgb(53 219 232 / 48%) 50%, rgb(47 107 255 / 42%) 70%, transparent);
+  background-size: 200% 100%;
+  animation: ri-shimmer 5.5s ease-in-out infinite;
+}
+
+/* Engineering corner brackets — blueprint reticle around the panel. */
+.runtime-intro__corners i {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid rgb(24 24 23 / 22%);
+  pointer-events: none;
+}
+.runtime-intro__corners i:nth-child(1) { top: 10px; left: 10px; border-top-width: 1.5px; border-left-width: 1.5px; }
+.runtime-intro__corners i:nth-child(2) { top: 10px; right: 10px; border-top-width: 1.5px; border-right-width: 1.5px; }
+.runtime-intro__corners i:nth-child(3) { bottom: 10px; left: 10px; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.runtime-intro__corners i:nth-child(4) { bottom: 10px; right: 10px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+.runtime-intro__close {
+  position: absolute;
+  top: .8rem;
+  right: .8rem;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .25s, border-color .25s, background .25s;
+  animation: ri-fade .5s ease .5s both;
+}
+.runtime-intro__close:hover { color: var(--ink); border-color: var(--line); background: var(--paper); }
+.runtime-intro__close:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+
+.runtime-intro__brand {
+  margin: 0 0 clamp(1rem, 2.4vw, 1.5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: var(--mono);
+  font-size: .6rem;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  animation: ri-fade .5s ease .2s both;
+}
+.runtime-intro__mark { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* ============ MINI RUNTIME CORE (CSS stand-in for the hero core) ============ */
+
+.runtime-intro__core {
+  position: relative;
+  display: block;
+  width: clamp(76px, 10vw, 104px);
+  aspect-ratio: 1;
+  margin-bottom: clamp(1.15rem, 2.6vw, 1.7rem);
+  animation: ri-core .7s var(--ease) .32s both;
+}
+.runtime-intro__core i {
+  position: absolute;
+  border-radius: 50%;
+  display: block;
+}
+.runtime-intro__core-glow {
+  inset: -38%;
+  background: radial-gradient(circle, rgb(255 75 43 / 14%), rgb(47 107 255 / 5%) 46%, transparent 66%);
+  filter: blur(7px);
+  animation: ri-breathe 5s ease-in-out infinite;
+}
+.runtime-intro__core-ticks {
+  inset: -13%;
+  background: repeating-conic-gradient(from 1deg, rgb(24 24 23 / 26%) 0deg .7deg, transparent .7deg 6deg);
+  -webkit-mask: radial-gradient(closest-side, transparent 95.6%, #000 96%, #000 98.8%, transparent 99.2%);
+  mask: radial-gradient(closest-side, transparent 95.6%, #000 96%, #000 98.8%, transparent 99.2%);
+  animation: ri-spin 80s linear infinite reverse;
+}
+.runtime-intro__core-disc {
+  inset: 21%;
+  background: radial-gradient(circle at 34% 28%, #ffffff, #f1eee7 58%, #dbd7cb 100%);
+  box-shadow:
+    inset 0 2px 5px rgb(255 255 255 / .9),
+    inset 0 -8px 14px rgb(118 118 108 / .26);
+}
+.runtime-intro__core-geodesic {
+  inset: 12%;
+  border: 1px dashed rgb(24 24 23 / 24%);
+  animation: ri-spin 28s linear infinite;
+}
+.runtime-intro__core-orbit {
+  inset: 0;
+  border: 1px solid rgb(24 24 23 / 30%);
+  animation: ri-spin 15s linear infinite;
+}
+/* A signal bead riding the orbit, like the data packets on the hero core. */
+.runtime-intro__core-orbit::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 8px rgb(255 75 43 / 60%);
+}
+/* Static tilted signal ring — the armillary depth cue. */
+.runtime-intro__core-tilt {
+  inset: 2%;
+  border: 1px solid rgb(255 75 43 / 45%);
+  transform: rotate(-16deg) scaleY(.52);
+}
+.runtime-intro__core-nucleus {
+  left: 50%;
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 38% 34%, #ff8a70, var(--signal) 62%);
+  box-shadow: 0 0 14px rgb(255 75 43 / 60%), 0 0 0 6px rgb(255 75 43 / 11%);
+  animation: ri-pulse 2.6s ease-in-out infinite;
+}
+
+/* ============ TYPE & CONTENT ============ */
+
+.runtime-intro__headline {
+  margin: 0 0 clamp(.9rem, 2vw, 1.25rem);
+  font-family: var(--display);
+  font-size: clamp(2rem, 5.2vw, 3.5rem);
+  font-weight: 600;
+  line-height: .98;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.runtime-intro__mask {
+  display: block;
+  overflow: hidden;
+  padding: .05em .12em .08em;
+  margin: -.05em -.12em -.08em;
+}
+.runtime-intro__line {
+  display: block;
+  transform: translateY(116%);
+  animation: ri-rise .78s cubic-bezier(.16, .74, .24, 1) both;
+  will-change: transform;
+}
+.runtime-intro__accent {
+  color: var(--signal);
+  font-style: normal;
+}
+
+.runtime-intro__description {
+  max-width: 32rem;
+  margin: 0 0 clamp(1.25rem, 2.6vw, 1.75rem);
+  color: var(--muted);
+  font-size: clamp(.86rem, 1.05vw, .98rem);
+  line-height: 1.7;
+  animation: ri-soft-rise .6s ease .88s both;
+}
+
+.runtime-intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .7rem;
+  margin-bottom: clamp(1.25rem, 2.6vw, 1.7rem);
+  animation: ri-soft-rise .6s ease 1.06s both;
+}
+.runtime-intro__enter {
+  position: relative;
+  min-height: 48px;
+  padding: .8rem 1.7rem;
+  border: 1px solid var(--signal);
+  border-radius: 999px;
+  background: var(--signal);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 14px 30px -14px rgb(255 75 43 / 55%);
+  transition: transform .3s var(--ease), box-shadow .3s;
+}
+/* Sheen sweep on hover + a soft breathing halo that keeps the eye on the CTA. */
+.runtime-intro__enter::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 46%;
+  background: linear-gradient(105deg, transparent, rgb(255 255 255 / 42%), transparent);
+  transform: translateX(-140%) skewX(-18deg);
+  transition: transform .7s var(--ease);
+}
+.runtime-intro__enter:hover::before { transform: translateX(320%) skewX(-18deg); }
+.runtime-intro__enter::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  border: 1.5px solid rgb(255 75 43 / 40%);
+  animation: ri-halo 2.8s ease-out infinite;
+  pointer-events: none;
+}
+.runtime-intro__enter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 38px -14px rgb(255 75 43 / 65%);
+}
+.runtime-intro__enter:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+
+.runtime-intro__explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: .8rem 1.5rem;
+  border: 1px solid rgb(24 24 23 / 18%);
+  border-radius: 999px;
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: border-color .3s, background .3s, transform .3s var(--ease);
+}
+.runtime-intro__explore:hover {
+  border-color: var(--ink);
+  background: #fff;
+  transform: translateY(-2px);
+}
+.runtime-intro__explore:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.runtime-intro__meta {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem 1.7rem;
+  padding-top: clamp(.9rem, 2vw, 1.1rem);
+  border-top: 1px solid var(--soft-line);
+  font-family: var(--mono);
+  font-size: .53rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  animation: ri-fade .6s ease 1.24s both;
+}
+.runtime-intro__meta span {
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.runtime-intro__meta b { font-weight: 500; color: var(--muted); }
+.runtime-intro__meta b::after { content: "/"; margin: 0 .45rem; color: var(--line); }
+.runtime-intro__live-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: .42rem;
+  border-radius: 50%;
+  background: #37bd78;
+  box-shadow: 0 0 0 3px rgb(55 189 120 / 14%);
+  animation: ri-live 2.2s ease-out infinite;
+}
+
+/* ============ LEAVING — hand the stage back to the homepage ============ */
+
+.runtime-intro--leaving .runtime-intro__panel { animation: ri-panel-out .48s ease both; }
+.runtime-intro--leaving .runtime-intro__stage { animation: ri-fade-out .58s ease .08s both; }
+
+/* ============ MOBILE — designed, not shrunk ============ */
+
+@media (max-width: 560px) {
+  .runtime-intro { padding: 16px; }
+  .runtime-intro__panel {
+    width: 100%;
+    padding: 1.4rem 1.15rem 1.1rem;
+    border-radius: 16px;
+  }
+  .runtime-intro__headline { font-size: clamp(1.5rem, 8.2vw, 2.3rem); }
+  .runtime-intro__description { font-size: .84rem; margin-bottom: 1.2rem; }
+  .runtime-intro__actions { flex-direction: column; width: 100%; gap: .6rem; margin-bottom: 1.2rem; }
+  .runtime-intro__enter,
+  .runtime-intro__explore { width: 100%; }
+  .runtime-intro__core { width: 68px; margin-bottom: .95rem; }
+  .runtime-intro__meta { gap: .4rem 1.1rem; justify-content: center; }
+  .runtime-intro__meta span { flex: 0 1 auto; }
+}
+
+@media (max-width: 360px) {
+  .runtime-intro__brand { font-size: .55rem; letter-spacing: .18em; }
+  .runtime-intro__meta { font-size: .48rem; gap: .35rem .9rem; }
+}
+
+/* ============ REDUCED MOTION — fast, plain fades ============ */
+
+@media (prefers-reduced-motion: reduce) {
+  .runtime-intro__stage,
+  .runtime-intro__panel,
+  .runtime-intro__close,
+  .runtime-intro__brand,
+  .runtime-intro__core,
+  .runtime-intro__description,
+  .runtime-intro__actions,
+  .runtime-intro__meta {
+    animation-duration: .16s !important;
+    animation-delay: 0s !important;
+  }
+  .runtime-intro__line { animation: none !important; transform: none; }
+  .runtime-intro__core-glow,
+  .runtime-intro__core-ticks,
+  .runtime-intro__core-geodesic,
+  .runtime-intro__core-orbit,
+  .runtime-intro__core-nucleus,
+  .runtime-intro__node,
+  .runtime-intro__panel::before,
+  .runtime-intro__enter::after { animation: none !important; }
+  .runtime-intro__enter::before { display: none; }
+  .runtime-intro__sweep { display: none; }
+  .runtime-intro--leaving .runtime-intro__panel,
+  .runtime-intro--leaving .runtime-intro__stage { animation-duration: .2s !important; animation-delay: 0s !important; }
+}
+
+/* ============ KEYFRAMES ============ */
+
+@keyframes ri-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ri-fade-out { to { opacity: 0; } }
+@keyframes ri-panel {
+  from { opacity: 0; transform: translateY(14px) scale(.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ri-panel-out {
+  to { opacity: 0; transform: translateY(-10px) scale(1.02); }
+}
+@keyframes ri-rise {
+  from { transform: translateY(116%); }
+  to { transform: none; }
+}
+@keyframes ri-soft-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ri-core {
+  from { opacity: 0; transform: scale(.88); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ri-spin { to { transform: rotate(1turn); } }
+@keyframes ri-breathe {
+  50% { transform: scale(1.08); opacity: .75; }
+}
+@keyframes ri-pulse {
+  50% { box-shadow: 0 0 18px rgb(255 75 43 / 70%), 0 0 0 9px rgb(255 75 43 / 7%); }
+}
+@keyframes ri-drift-a {
+  to { transform: translate(26px, -18px); }
+}
+@keyframes ri-drift-b {
+  to { transform: translate(-22px, 20px); }
+}
+@keyframes ri-shimmer {
+  0%, 100% { background-position: 0% 0; opacity: .75; }
+  50% { background-position: 100% 0; opacity: 1; }
+}
+@keyframes ri-halo {
+  0% { opacity: .85; transform: scale(.97); }
+  70% { opacity: 0; transform: scale(1.22); }
+  100% { opacity: 0; transform: scale(1.22); }
+}
+@keyframes ri-stage-sweep {
+  to { transform: translateX(85%); }
+}
+@keyframes ri-live {
+  0% { box-shadow: 0 0 0 0 rgb(55 189 120 / 45%); }
+  70% { box-shadow: 0 0 0 5px rgb(55 189 120 / 0%); }
+  100% { box-shadow: 0 0 0 0 rgb(55 189 120 / 0%); }
+}

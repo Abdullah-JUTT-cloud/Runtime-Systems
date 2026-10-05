@@ -3,6 +3,7 @@ import { CustomCursor } from "./components/CustomCursor";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Footer } from "./components/Footer";
 import { Navigation } from "./components/Navigation";
+import { RuntimeIntro } from "./components/intro/RuntimeIntro";
 import { ScrollProgress } from "./components/ScrollProgress";
 import { SonarMount } from "./components/SonarMount";
 import { useReveal } from "./hooks/useReveal";
@@ -15,6 +16,7 @@ import { Contact } from "./pages/Contact";
 import { Home } from "./pages/Home";
 import { Insights } from "./pages/Insights";
 import { NotFound } from "./pages/NotFound";
+import { Privacy } from "./pages/Privacy";
 import { Process } from "./pages/Process";
 import { ProjectBrief } from "./pages/ProjectBrief";
 import { ProjectDetail } from "./pages/ProjectDetail";
@@ -41,6 +43,7 @@ function RouteView({ path }: { path: string }) {
   if (path === "/insights") return <Insights />;
   if (path === "/careers") return <Careers />;
   if (path === "/contact") return <Contact />;
+  if (path === "/privacy-policy") return <Privacy />;
   if (path === "/start-project") return <ProjectBrief />;
   return <NotFound />;
 }
@@ -68,6 +71,7 @@ export function App() {
       </AnimatePresence>
       {!standalone && <Footer />}
       <SonarMount />
+      <RuntimeIntro />
     </ErrorBoundary>
   );
 }

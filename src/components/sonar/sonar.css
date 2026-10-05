@@ -431,20 +431,63 @@
   border-radius: 12px 12px 4px 12px;
 }
 
-.sonar-msg--typing .sonar-msg__body { display: inline-flex; align-items: center; gap: 7px; padding: .6rem .75rem; }
-.sonar-typing .sonar-orb { flex: 0 0 auto; }
-.sonar-typing span:not(.visually-hidden) {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--muted);
-  animation: sonar-typing 1.2s ease-in-out infinite;
+/* Typing bubble — compact, tinted with the SONAR energy palette, a slow
+   light sweep to feel "processing", and a sonar ping on the orb. */
+.sonar-msg--typing { align-items: flex-start; }
+.sonar-msg--typing .sonar-msg__body {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: .58rem .85rem;
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--sn-blue) 22%, var(--line));
+  background:
+    linear-gradient(160deg, rgb(53 219 232 / 7%), rgb(47 107 255 / 5%) 72%),
+    var(--white);
+  box-shadow: 0 10px 26px -16px rgb(47 107 255 / 35%);
 }
-.sonar-typing span:nth-of-type(2) { animation-delay: .15s; }
-.sonar-typing span:nth-of-type(3) { animation-delay: .3s; }
+/* Energy sweep — one soft light band drifting across while SONAR thinks. */
+.sonar-msg--typing .sonar-msg__body::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 55%;
+  background: linear-gradient(105deg, transparent, rgb(53 219 232 / 13%) 40%, rgb(47 107 255 / 9%) 60%, transparent);
+  transform: translateX(-130%) skewX(-16deg);
+  animation: sonar-sweep 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sonar-sweep {
+  to { transform: translateX(285%) skewX(-16deg); }
+}
+
+.sonar-typing .sonar-orb { flex: 0 0 auto; }
+/* The little orb pings while it thinks — a sonar return, not just dots. */
+.sonar-typing .sonar-orb::after {
+  content: "";
+  position: absolute;
+  inset: -26%;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--sn-cyan) 55%, transparent);
+  animation: sonar-ping 1.7s cubic-bezier(.2, .6, .35, 1) infinite;
+  pointer-events: none;
+}
+.sonar-typing > span:not(.visually-hidden):not(.sonar-orb) {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sn-cyan), var(--sn-blue));
+  box-shadow: 0 2px 6px -2px rgb(47 107 255 / 45%);
+  animation: sonar-typing 1.3s ease-in-out infinite;
+}
+.sonar-typing > span:nth-of-type(3) { animation-delay: .16s; }
+.sonar-typing > span:nth-of-type(4) { animation-delay: .32s; }
 @keyframes sonar-typing {
-  0%, 60%, 100% { transform: translateY(0); opacity: .5; }
-  30% { transform: translateY(-3px); opacity: 1; }
+  0%, 62%, 100% { transform: translateY(0) scale(1); opacity: .45; }
+  28% { transform: translateY(-3px) scale(1.1); opacity: 1; }
 }
 
 /* ============================================================
@@ -655,5 +698,7 @@
   .sonar-brief__button,
   .sonar-icon-btn,
   .sonar-quick__chip { transition: none !important; }
-  .sonar-typing span:not(.visually-hidden) { animation: none !important; opacity: .6; }
+  .sonar-typing > span:not(.visually-hidden):not(.sonar-orb) { animation: none !important; opacity: .6; }
+  .sonar-msg--typing .sonar-msg__body::after { display: none; }
+  .sonar-typing .sonar-orb::after { animation: none !important; opacity: .35; }
 }

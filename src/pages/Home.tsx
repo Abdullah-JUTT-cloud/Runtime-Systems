@@ -3,7 +3,7 @@ import { ArrowDown, CheckCircle2, Globe2, Layers3, ShieldCheck, Sparkles, Workfl
 import { ArchitectureGraph } from "../components/ArchitectureGraph";
 import { Button, SectionLabel, TextLink } from "../components/Primitives";
 import { ProjectShowcase } from "../components/ProjectShowcase";
-import { ServiceExplorer } from "../components/ServiceExplorer";
+import { EngineBench } from "../components/EngineBench";
 import { ClosingCTA } from "../components/ClosingCTA";
 import { GlobalNetwork } from "../components/GlobalNetwork";
 import { RuntimeFallback } from "../components/runtime/RuntimeFallback";
@@ -98,8 +98,8 @@ export function Home() {
       <section className="capabilities section-space">
         <div className="container">
           <SectionLabel index="02">Core capabilities</SectionLabel>
-          <div className="section-heading" data-reveal><h2>One system.<br />Multiple engines.</h2><p>Choose a layer. See how the runtime reconfigures around the problem.</p></div>
-          <ServiceExplorer />
+          <div className="section-heading" data-reveal><h2>One system.<br />Multiple engines.</h2><p>Tune the bus to an engine and watch the runtime reconfigure around the problem. The bench scans on its own until you take control.</p></div>
+          <EngineBench />
         </div>
       </section>
 
