@@ -153,6 +153,168 @@ export const insights: Insight[] = [
       },
     ],
   },
+  {
+    slug: "ship-the-boring-parts-first",
+    category: "Engineering",
+    title: "Ship the boring parts first",
+    summary: "Why logging, config, and error paths deserve the first sprint, not the last one.",
+    date: "Runtime note",
+    readTime: "6 min",
+    image: "/images/web-platform.jpg",
+    imageAlt: "Developer workspace with a web platform dashboard open across monitors.",
+    takeaways: ["Build the error path first", "Treat config as product surface", "Make the second week calmer"],
+    sections: [
+      {
+        heading: "The exciting 20% is not the system",
+        body: [
+          "Every product has a demo path: the happy flow that looks great in a walkthrough. The system is the other part — retries, validation, permissions, log lines someone will read at 2 a.m., and the config screen an operator has to trust.",
+          "Teams that build the boring parts first discover the real constraints while change is still cheap. Teams that defer them discover the constraints during launch week, when every fix is expensive and visible.",
+        ],
+      },
+      {
+        heading: "Operational code is user experience",
+        body: [
+          "A clear error message, a readable audit trail, and a predictable restart are features users and support teams feel directly. They reduce escalations, shorten incidents, and make the product feel safe to depend on.",
+          "Runtime Systems schedules this work into the first builds on purpose. It is far easier to keep a calm codebase calm than to retrofit observability and honest failure states onto a system that never had them.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "design-the-eval-before-the-prompt",
+    category: "AI",
+    title: "Design the eval before the prompt",
+    summary: "A test suite for model behavior is the fastest way to make AI work shippable.",
+    date: "Runtime note",
+    readTime: "8 min",
+    image: "/images/ai-lab.jpg",
+    imageAlt: "Machine learning workspace with experiment dashboards and test runs.",
+    takeaways: ["Define success before tuning", "Build a small golden set", "Re-run evals on every change"],
+    sections: [
+      {
+        heading: "Prompt tuning without measurement is guessing",
+        body: [
+          "Adjusting prompts, retrieval settings, or model versions without a fixed evaluation set produces impressions, not evidence. One impressive demo answer can hide twenty quiet failures that customers will find first.",
+          "A small golden set of real inputs — including the awkward, adversarial, and empty ones — turns model changes into measurable decisions. The team can see whether quality moved instead of debating anecdotes.",
+        ],
+      },
+      {
+        heading: "Evals belong in the delivery loop",
+        body: [
+          "An eval suite earns its value when it runs automatically: on prompt changes, on model upgrades, on retrieval index updates, and before release. Regression becomes visible the day it appears, not the month after customers report it.",
+          "Runtime Systems treats evals as part of the definition of done for AI features. The same discipline that keeps conventional software stable — tests, thresholds, review — is what makes AI behavior governable in production.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "boundaries-are-product-decisions",
+    category: "Architecture",
+    title: "Boundaries are product decisions",
+    summary: "Where one system ends and the next begins shapes speed, cost, and what can change.",
+    date: "Runtime note",
+    readTime: "7 min",
+    image: "/images/runtime-partner.jpg",
+    imageAlt: "Engineers sketching service boundaries and data flows on a whiteboard.",
+    takeaways: ["Draw boundaries around change", "Own the data model", "Keep one team per boundary"],
+    sections: [
+      {
+        heading: "Every boundary is a bet about the future",
+        body: [
+          "Splitting a system into services, modules, or integrations decides which future changes are cheap and which require coordination across teams. A boundary drawn around a feature that always changes together creates drag; a boundary around a genuinely independent capability creates speed.",
+          "The right split follows the product's pressure points: what ships independently, what fails independently, and which data has one authoritative owner.",
+        ],
+      },
+      {
+        heading: "The data model is the contract",
+        body: [
+          "Interfaces can be redesigned in a sprint; a corrupted data model follows the product for years. Boundaries should guarantee that each domain's records have one owner, one writer, and a clear history.",
+          "Runtime Systems starts architecture work from the data: what exists, who changes it, how long it lives, and what must survive a pivot. Service maps and API contracts become easier and far more durable once that is settled.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "alerts-are-a-user-interface",
+    category: "Systems",
+    title: "Alerts are a user interface",
+    summary: "Monitoring that treats on-call engineers as users stops pages nobody can act on.",
+    date: "Runtime note",
+    readTime: "6 min",
+    image: "/images/qa-eval.jpg",
+    imageAlt: "Monitoring dashboards with service health metrics during a review session.",
+    takeaways: ["Page on symptoms, not causes", "Every alert needs a runbook", "Delete alerts nobody acts on"],
+    sections: [
+      {
+        heading: "A page is a request for human attention",
+        body: [
+          "Every alert interrupts someone's life. If the responder cannot look at the page, form a hypothesis, and take a safe action, the alert is noise — and noise trains people to ignore the system exactly when it matters.",
+          "Good alerting pages on user-visible symptoms: latency above a budget, error rate above a threshold, sync falling behind. Causes are explored in dashboards, not broadcast at 3 a.m.",
+        ],
+      },
+      {
+        heading: "Observability is maintained, not installed",
+        body: [
+          "Dashboards and alerts drift out of date as the product changes. An alert that has fired ten times with no action is a decision waiting to be made: fix the cause, fix the threshold, or delete the alert.",
+          "Runtime Systems reviews signal quality as part of regular delivery — adding coverage for new behavior, pruning dead rules, and keeping runbooks linked to every page so the responder's next step is always written down.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "interfaces-are-commitments",
+    category: "Product",
+    title: "Interfaces are commitments",
+    summary: "Every screen a team ships teaches users what the product will keep doing for them.",
+    date: "Runtime note",
+    readTime: "6 min",
+    image: "/images/product-design.jpg",
+    imageAlt: "Product designer reviewing interface flows with annotated screens.",
+    takeaways: ["Design the empty and error states", "Ship fewer promises, keep them", "Test with real data shapes"],
+    sections: [
+      {
+        heading: "Users read behavior, not roadmaps",
+        body: [
+          "A button that works once is a promise that it will work every time. A filter that silently drops results teaches users to distrust the whole page. Product quality is the accumulation of kept promises, and the interface is where those promises are visible.",
+          "That is why the empty state, the loading state, and the failure state deserve the same craft as the happy path. They are the moments when users decide whether the product respects them.",
+        ],
+      },
+      {
+        heading: "Design with the data you actually have",
+        body: [
+          "Screens designed against tidy placeholder data break against real names, real volumes, and real gaps. Long strings, missing values, time zones, and duplicate records are not edge cases; they are Tuesday.",
+          "Runtime Systems pairs design and engineering against realistic data shapes from the first build, so the interface that ships is the interface that was actually tested.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "environments-are-part-of-the-product",
+    category: "DevOps",
+    title: "Environments are part of the product",
+    summary: "Deployment pipelines and staging fidelity decide how safely a team can move.",
+    date: "Runtime note",
+    readTime: "6 min",
+    image: "/images/cloud-ops.jpg",
+    imageAlt: "Cloud operations workspace with deployment pipelines and infrastructure views.",
+    takeaways: ["Make staging honest", "Deploy small and often", "Automate the rollback path"],
+    sections: [
+      {
+        heading: "Releases are a habit, not an event",
+        body: [
+          "Teams that deploy monthly treat every release as a risk pile-up. Teams that deploy daily spread the same change over many small, reversible steps — and get feedback from production while the change is still fresh in mind.",
+          "The difference is not courage; it is pipeline. Build, test, migrate, deploy, and verify as one automated path that anyone on the team can trigger without a checklist ceremony.",
+        ],
+      },
+      {
+        heading: "Staging must earn its name",
+        body: [
+          "A staging environment that runs different data, different scale, or different integrations validates nothing. It quietly converts every release into a production experiment.",
+          "Runtime Systems keeps staging honest — production-shaped data, real third-party sandboxes, and rehearsed rollbacks — so the first time a change meets reality is not in front of customers.",
+        ],
+      },
+    ],
+  },
 ];
 
 export const insightCategories = ["Engineering", "AI", "Architecture", "Product", "Systems", "DevOps"] as const;

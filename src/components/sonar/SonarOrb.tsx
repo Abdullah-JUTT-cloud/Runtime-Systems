@@ -1,11 +1,13 @@
 /**
- * The SONAR orb — a fluid "intelligence core" rendered with layered CSS
- * gradients only (no canvas/WebGL) so the always-visible launcher stays
- * cheap to animate. Layers, back to front: deep sphere base, a slowly
- * rotating conic energy sweep, drifting aqua and warm blobs, a breathing
- * core highlight, a glass sheen, and the sonar-pulse mark.
+ * The SONAR orb — a soft multicolor "liquid light" sphere rendered with
+ * layered CSS gradients only (no canvas/WebGL) so the always-visible
+ * launcher stays cheap to animate. Layers, back to front: a pale sphere
+ * base, a rotating color field (pink / yellow / cyan / green / blue blobs
+ * that also drift individually and continuously cycle hue), a halftone
+ * dot texture, and a fixed glass gloss so the rotation reads as a lit 3D
+ * ball. The sonar-pulse mark sits on top.
  *
- * Variants set the internal blur/scale rhythm; layout size comes from CSS.
+ * Variants set size via CSS; the color field scales with the orb.
  */
 export type SonarOrbVariant = "lg" | "sm" | "xs";
 
@@ -24,11 +26,15 @@ export function SonarOrb({
       aria-hidden="true"
     >
       <span className="sonar-orb__field">
-        <span className="sonar-orb__sweep" />
-        <span className="sonar-orb__blob sonar-orb__blob--aqua" />
-        <span className="sonar-orb__blob sonar-orb__blob--warm" />
-        <span className="sonar-orb__core" />
-        <span className="sonar-orb__shimmer" />
+        <span className="sonar-orb__spin">
+          <span className="sonar-orb__blob sonar-orb__blob--green" />
+          <span className="sonar-orb__blob sonar-orb__blob--cyan" />
+          <span className="sonar-orb__blob sonar-orb__blob--pink" />
+          <span className="sonar-orb__blob sonar-orb__blob--yellow" />
+          <span className="sonar-orb__blob sonar-orb__blob--blue" />
+        </span>
+        <span className="sonar-orb__dots" />
+        <span className="sonar-orb__gloss" />
       </span>
       {variant !== "xs" ? <SonarMark className="sonar-orb__mark" /> : null}
     </span>

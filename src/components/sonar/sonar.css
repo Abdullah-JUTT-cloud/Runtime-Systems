@@ -5,7 +5,8 @@
 
 .sonar-launcher,
 .sonar-panel,
-.sonar-backdrop {
+.sonar-backdrop,
+.sonar-cta {
   --sn-cyan: #35dbe8;
   --sn-blue: #2f6bff;
   --sn-deep: #0a2f5e;
@@ -74,7 +75,10 @@
 }
 
 /* ============================================================
-   THE ORB — layered fluid-energy core (CSS only, no canvas)
+   THE ORB — soft multicolor liquid-light sphere (CSS only)
+   Pale base sphere, a rotating field of saturated pastel blobs
+   whose hues cycle continuously, a halftone dot texture, and a
+   fixed gloss so the motion reads as a lit ball rotating.
    ============================================================ */
 
 .sonar-orb {
@@ -85,18 +89,18 @@
   border-radius: 50%;
   transition: transform .35s var(--ease), box-shadow .35s;
   box-shadow:
-    0 14px 34px -10px rgb(23 108 190 / 50%),
-    0 4px 12px -4px rgb(7 36 78 / 35%);
+    0 18px 42px -14px rgb(168 100 200 / 45%),
+    0 6px 18px -8px rgb(30 70 110 / 30%);
 }
-.sonar-orb--lg { --so-size: 64px; --so-blur: 12px; --so-blob-blur: 9px; }
-.sonar-orb--sm { --so-size: 30px; --so-blur: 6px; --so-blob-blur: 5px; }
-.sonar-orb--xs { --so-size: 15px; --so-blur: 3px; --so-blob-blur: 3px; }
+.sonar-orb--lg { --so-size: 64px; }
+.sonar-orb--sm { --so-size: 30px; }
+.sonar-orb--xs { --so-size: 15px; }
 
 .sonar-launcher:hover .sonar-orb {
   transform: scale(1.06);
   box-shadow:
-    0 18px 44px -10px rgb(23 108 190 / 65%),
-    0 6px 16px -4px rgb(7 36 78 / 45%);
+    0 22px 52px -14px rgb(168 100 200 / 60%),
+    0 8px 22px -8px rgb(30 70 110 / 40%);
 }
 .sonar-launcher:active .sonar-orb { transform: scale(.97); }
 
@@ -106,7 +110,10 @@
   position: absolute;
   inset: -24%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgb(53 219 232 / 32%), rgb(47 107 255 / 14%) 46%, transparent 68%);
+  background:
+    radial-gradient(circle at 32% 34%, rgb(255 122 208 / 20%), transparent 56%),
+    radial-gradient(circle at 68% 68%, rgb(79 212 247 / 20%), transparent 56%),
+    radial-gradient(circle, rgb(255 207 92 / 14%), transparent 62%);
   animation: sonar-halo 6.5s ease-in-out infinite;
   pointer-events: none;
 }
@@ -115,105 +122,113 @@
   50% { opacity: .95; transform: scale(1.06); }
 }
 
+/* Pale sphere base — the "glass ball" the colors float inside. */
 .sonar-orb__field {
   position: absolute;
   inset: 0;
   border-radius: inherit;
   overflow: hidden;
-  background: radial-gradient(125% 125% at 32% 24%, #1b74c7 0%, #0d4a8d 34%, #0a3670 58%, #062a56 82%, #041f42 100%);
+  background: radial-gradient(120% 120% at 30% 20%, #ffffff 0%, #f7f5f1 38%, #e3eaec 72%, #ccd8dd 100%);
   box-shadow:
-    inset 0 1px 1px rgb(255 255 255 / 35%),
-    inset 0 -12px 22px rgb(3 16 34 / 55%),
-    inset 0 10px 16px rgb(140 226 255 / 22%);
+    inset 0 2px 6px rgb(255 255 255 / .9),
+    inset 0 -16px 28px rgb(105 135 160 / .32),
+    inset 0 0 2px rgb(255 255 255 / .6);
 }
 
-/* Slow rotating energy sweep. */
-.sonar-orb__sweep {
+/* Rotating color field: spins like the ball turning, while its hue
+   cycles endlessly so the palette never settles. */
+.sonar-orb__spin {
   position: absolute;
-  inset: -60%;
-  background: conic-gradient(from 20deg at 50% 50%,
-    transparent 0deg,
-    rgb(53 219 232 / 0) 60deg,
-    rgb(53 219 232 / .5) 130deg,
-    rgb(47 107 255 / .55) 205deg,
-    rgb(159 240 255 / .38) 285deg,
-    transparent 360deg);
-  filter: blur(var(--so-blur, 12px));
-  animation: sonar-rotate 9s linear infinite;
-  will-change: transform;
+  inset: -22%;
+  border-radius: 50%;
+  animation:
+    sonar-rotate 14s linear infinite,
+    sonar-hue 9s linear infinite;
+  will-change: transform, filter;
 }
 @keyframes sonar-rotate { to { transform: rotate(1turn); } }
+@keyframes sonar-hue { to { filter: hue-rotate(360deg); } }
 
-/* Drifting internal blobs — liquid color movement, 9–13s cycles. */
+/* Drifting saturated blobs — liquid color movement on top of the spin. */
 .sonar-orb__blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(var(--so-blob-blur, 9px));
   will-change: transform;
 }
-.sonar-orb__blob--aqua {
-  width: 64%;
-  height: 64%;
-  top: -14%;
-  left: -12%;
-  background: radial-gradient(circle at 40% 40%, rgb(126 241 255 / .8), rgb(47 107 255 / .28) 58%, transparent 72%);
-  animation: sonar-drift-aqua 11s ease-in-out infinite alternate;
+.sonar-orb__blob--pink {
+  width: 58%; height: 58%; left: -4%; top: 28%;
+  background: radial-gradient(circle at 46% 46%, rgb(255 78 172 / .95), rgb(255 78 172 / 0) 70%);
+  animation: sonar-drift-a 9s ease-in-out infinite alternate;
 }
-.sonar-orb__blob--warm {
-  width: 42%;
-  height: 42%;
-  right: -8%;
-  bottom: 2%;
-  background: radial-gradient(circle at 50% 50%, rgb(255 215 106 / .7), rgb(255 190 80 / 0) 68%);
-  animation: sonar-drift-warm 13s ease-in-out infinite alternate;
+.sonar-orb__blob--yellow {
+  width: 54%; height: 54%; left: 32%; top: 26%;
+  background: radial-gradient(circle at 50% 50%, rgb(255 204 38 / .95), rgb(255 204 38 / 0) 68%);
+  animation: sonar-drift-b 11s ease-in-out infinite alternate;
 }
-@keyframes sonar-drift-aqua {
-  0% { transform: translate(4%, 6%) scale(1); }
-  50% { transform: translate(24%, 20%) scale(1.08); }
-  100% { transform: translate(6%, -8%) scale(.94); }
+.sonar-orb__blob--cyan {
+  width: 58%; height: 58%; right: -6%; bottom: 2%;
+  background: radial-gradient(circle at 50% 50%, rgb(34 194 255 / .88), rgb(34 194 255 / 0) 70%);
+  animation: sonar-drift-c 13s ease-in-out infinite alternate;
 }
-@keyframes sonar-drift-warm {
-  0% { transform: translate(-6%, -12%) scale(.9); }
-  50% { transform: translate(-22%, -4%) scale(1.05); }
-  100% { transform: translate(-4%, 8%) scale(1); }
+.sonar-orb__blob--green {
+  width: 50%; height: 50%; left: 22%; top: -6%;
+  background: radial-gradient(circle at 50% 50%, rgb(112 230 142 / .85), rgb(112 230 142 / 0) 70%);
+  animation: sonar-drift-b 12s ease-in-out infinite alternate-reverse;
+}
+.sonar-orb__blob--blue {
+  width: 50%; height: 50%; left: 26%; bottom: -10%;
+  background: radial-gradient(circle at 50% 50%, rgb(52 112 255 / .75), rgb(52 112 255 / 0) 70%);
+  animation: sonar-drift-a 10s ease-in-out infinite alternate-reverse;
+}
+@keyframes sonar-drift-a {
+  0% { transform: translate(3%, 5%) scale(1); }
+  50% { transform: translate(16%, 12%) scale(1.1); }
+  100% { transform: translate(4%, -7%) scale(.92); }
+}
+@keyframes sonar-drift-b {
+  0% { transform: translate(-4%, -6%) scale(.94); }
+  50% { transform: translate(10%, 8%) scale(1.08); }
+  100% { transform: translate(-8%, 4%) scale(1); }
+}
+@keyframes sonar-drift-c {
+  0% { transform: translate(-5%, -4%) scale(1.02); }
+  50% { transform: translate(-14%, 6%) scale(.9); }
+  100% { transform: translate(5%, -8%) scale(1.08); }
 }
 
-/* Breathing core highlight. */
-.sonar-orb__core {
+/* Halftone dot texture — print-like grain that rides over the color
+   field and picks up whatever hue sits beneath it. */
+.sonar-orb__dots {
   position: absolute;
-  width: 38%;
-  height: 38%;
-  top: 16%;
-  left: 22%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgb(255 255 255 / .95), rgb(170 243 255 / .55) 55%, transparent 72%);
-  filter: blur(2px);
-  animation: sonar-core 7s ease-in-out infinite;
+  inset: 0;
+  border-radius: inherit;
+  background-image: radial-gradient(rgb(30 36 46 / .55) 1px, transparent 1.45px);
+  background-size: 9% 9%;
+  mix-blend-mode: multiply;
+  opacity: .42;
+  -webkit-mask-image: radial-gradient(56% 56% at 30% 44%, #000 0%, transparent 100%);
+  mask-image: radial-gradient(56% 56% at 30% 44%, #000 0%, transparent 100%);
+  animation: sonar-dots 16s ease-in-out infinite alternate;
+  will-change: transform;
 }
-@keyframes sonar-core {
-  0%, 100% { opacity: .5; transform: scale(1); }
-  50% { opacity: .9; transform: scale(1.12); }
+@keyframes sonar-dots {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(6%, -5%) scale(1.06); }
 }
 
-/* Faster shimmer layer, revealed only on hover (avoids re-timing the base
-   animations, which would visibly jump). */
-.sonar-orb__shimmer {
+/* Fixed glass gloss — a stationary light source (top-left highlight and
+   a milky center) that sells the 3D rotation of the color field. */
+.sonar-orb__gloss {
   position: absolute;
-  inset: -60%;
-  background: conic-gradient(from 120deg,
-    transparent 0 35%,
-    rgb(255 255 255 / .22) 47%,
-    rgb(159 240 255 / .3) 53%,
-    transparent 65% 100%);
-  filter: blur(var(--so-blur, 12px));
-  opacity: 0;
-  transition: opacity .4s;
-  animation: sonar-rotate 2.8s linear infinite;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(52% 38% at 30% 14%, rgb(255 255 255 / .88), rgb(255 255 255 / 0) 72%),
+    radial-gradient(38% 38% at 52% 48%, rgb(255 255 255 / .45), rgb(255 255 255 / 0) 75%),
+    radial-gradient(40% 30% at 72% 88%, rgb(255 255 255 / .34), transparent 70%);
 }
-.sonar-launcher:hover .sonar-orb__shimmer,
-.sonar-launcher:focus-visible .sonar-orb__shimmer { opacity: 1; }
 
-/* Sonar-pulse mark. */
+/* Sonar-pulse mark — dark ink with a white halo so it reads on pastels. */
 .sonar-orb__mark {
   position: absolute;
   top: 50%;
@@ -221,12 +236,12 @@
   width: 40%;
   height: 40%;
   transform: translate(-50%, -50%);
-  color: rgb(255 255 255 / .94);
-  filter: drop-shadow(0 1px 3px rgb(4 31 66 / .6));
+  color: #16232e;
+  filter: drop-shadow(0 1px 2px rgb(255 255 255 / .85)) drop-shadow(0 0 6px rgb(255 255 255 / .6));
 }
 .sonar-orb--sm .sonar-orb__mark { width: 48%; height: 48%; }
 
-/* SONAR_THINKING — an outward ping ring plus a quicker core pulse. */
+/* SONAR_THINKING — an outward ping ring plus a quicker gloss pulse. */
 .sonar-orb--thinking::after {
   content: "";
   position: absolute;
@@ -240,17 +255,16 @@
   0% { transform: scale(.72); opacity: .85; }
   100% { transform: scale(1.55); opacity: 0; }
 }
-.sonar-orb--thinking .sonar-orb__core { animation: sonar-core-think 1.6s ease-in-out infinite; }
-@keyframes sonar-core-think {
-  0%, 100% { opacity: .55; transform: scale(.92); }
-  50% { opacity: 1; transform: scale(1.18); }
+.sonar-orb--thinking .sonar-orb__gloss { animation: sonar-gloss-think 1.6s ease-in-out infinite; }
+@keyframes sonar-gloss-think {
+  0%, 100% { opacity: .75; }
+  50% { opacity: 1; }
 }
 
 /* Fast-scroll calm state: pause the idle motion, dim the halo. */
-.sonar-launcher[data-calm] .sonar-orb__sweep,
+.sonar-launcher[data-calm] .sonar-orb__spin,
 .sonar-launcher[data-calm] .sonar-orb__blob,
-.sonar-launcher[data-calm] .sonar-orb__core,
-.sonar-launcher[data-calm] .sonar-orb__shimmer,
+.sonar-launcher[data-calm] .sonar-orb__dots,
 .sonar-launcher[data-calm] .sonar-orb::before,
 .sonar-launcher[data-calm] .sonar-launcher__label { animation-play-state: paused; }
 
@@ -621,10 +635,9 @@
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  .sonar-orb__sweep,
+  .sonar-orb__spin,
   .sonar-orb__blob,
-  .sonar-orb__core,
-  .sonar-orb__shimmer,
+  .sonar-orb__dots,
   .sonar-launcher .sonar-orb::before,
   .sonar-launcher__label,
   .sonar-panel__status i,

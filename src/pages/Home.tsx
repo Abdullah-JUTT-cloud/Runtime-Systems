@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { ArrowDown, CheckCircle2, Globe2, Layers3, Radar, ShieldCheck, Sparkles, Workflow } from "lucide-react";
+import { ArrowDown, CheckCircle2, Globe2, Layers3, ShieldCheck, Sparkles, Workflow } from "lucide-react";
 import { ArchitectureGraph } from "../components/ArchitectureGraph";
 import { Button, SectionLabel, TextLink } from "../components/Primitives";
 import { ProjectShowcase } from "../components/ProjectShowcase";
@@ -10,6 +10,7 @@ import { RuntimeFallback } from "../components/runtime/RuntimeFallback";
 import { insights } from "../data/insights";
 import { SEO } from "../components/SEO";
 import { openSonar } from "../components/sonar/sonarOpen";
+import { SonarOrb } from "../components/sonar/SonarOrb";
 
 const RuntimeCore = lazy(() => import("../components/runtime/RuntimeCore").then((module) => ({ default: module.RuntimeCore })));
 
@@ -65,7 +66,7 @@ export function Home() {
             <div className="button-row"><Button href="/start-project">Start a Project</Button><Button href="/work" secondary>Explore Our Work</Button></div>
             <button type="button" className="button button--secondary sonar-cta sonar-cta--hero" onClick={openSonar}>
               <span>Plan your project with SONAR</span>
-              <Radar size={17} />
+              <SonarOrb variant="xs" />
             </button>
           </div>
         </div>

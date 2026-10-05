@@ -1,0 +1,167 @@
+# ============================================
+# Dependencies
+# ============================================
+node_modules/
+.pnp/
+.pnp.js
+
+# ============================================
+# Build output
+# ============================================
+dist/
+build/
+.next/
+out/
+.vercel/
+
+# ============================================
+# Environment variables / secrets
+# ============================================
+.env
+.env.*
+!.env.example
+
+# Local environment files
+*.local
+
+# ============================================
+# Logs
+# ============================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ============================================
+# Testing
+# ============================================
+coverage/
+.nyc_output/
+.playwright-cli/
+test-results/
+playwright-report/
+blob-report/
+
+# ============================================
+# IDE / Editors
+# ============================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ============================================
+# OS generated files
+# ============================================
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ============================================
+# Temporary files
+# ============================================
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.cache/
+.tmp/
+
+# ============================================
+# TypeScript
+# ============================================
+*.tsbuildinfo
+
+# ============================================
+# Next.js
+# ============================================
+.next/
+next-env.d.ts
+
+# ============================================
+# Vite
+# ============================================
+.vite/
+
+# ============================================
+# React Native / Expo (if used later)
+# ============================================
+.expo/
+.expo-shared/
+
+# ============================================
+# Turbo / Monorepo
+# ============================================
+.turbo/
+
+# ============================================
+# Package manager files
+# Keep lockfiles tracked!
+# ============================================
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ============================================
+# Local database / generated files
+# ============================================
+*.sqlite
+*.sqlite3
+*.db
+
+# ============================================
+# Generated assets / exports
+# ============================================
+*.zip
+*.tar
+*.gz
+
+# ============================================
+# Certificates / private keys
+# ============================================
+*.pem
+*.key
+*.crt
+
+.dev.vars
+# Sonar test transpile cache
+.sonar-cache/
+
+# ===== ↑ 以上同步自 .gitignore（「从 .gitignore 同步」只重写以上部分）=====
+.git/
+.hg/
+.svn/
+bower_components/
+jspm_packages/
+__pycache__/
+site-packages/
+venv/
+htmlcov/
+lcov-report/
+cmakefiles/
+cmake-build-*/
+bazel-*/
+pods/
+deriveddata/
+storybook-static/
+allure-results/
+allure-report/
+cdk.out/
+*.egg-info/
+*.dist-info/
+eggs/
+pip-wheel-metadata/
+wheels/
+# ----- ↑ 以上为 ZCode 默认排除规则（自定义规则请写在本行下方，不会被同步/恢复改动）-----
+# 自定义规则写在下方（本行提示可删除）

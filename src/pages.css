@@ -1,5 +1,81 @@
-.sonar-cta { margin-top: .9rem; }
+/* SONAR CTA — white pill wrapped in a continuously hue-cycling gradient
+   ring, with a sheen sweep on hover and a mini color orb as the icon. */
+.button.sonar-cta {
+  position: relative;
+  margin-top: .9rem;
+  overflow: hidden;
+  isolation: isolate;
+  border: 0;
+  color: var(--ink);
+  background: var(--white);
+  box-shadow:
+    0 0 0 1px rgb(24 24 23 / 7%),
+    0 16px 38px -18px rgb(20 40 80 / 35%);
+  transition: color .3s, transform .3s var(--ease), box-shadow .3s;
+}
+.button.sonar-cta:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgb(24 24 23 / 10%),
+    0 22px 48px -18px rgb(20 40 80 / 45%);
+}
+.button.sonar-cta:focus-visible { outline: 2px solid var(--sn-blue); outline-offset: 3px; }
+
+/* The gradient ring: a masked border layer whose hue cycles forever. */
+.button.sonar-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(115deg, #ff7ad0, #ffcf5c, #7ff0b2, #4fd4f7, #a08bff, #ff7ad0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: sonar-cta-hue 9s linear infinite;
+  pointer-events: none;
+}
+@keyframes sonar-cta-hue { to { filter: hue-rotate(360deg); } }
+
+/* Sheen that sweeps across once per hover. */
+.button.sonar-cta::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -45%;
+  width: 38%;
+  background: linear-gradient(105deg, transparent, rgb(255 255 255 / .9), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.button.sonar-cta:hover::after,
+.button.sonar-cta:focus-visible::after { animation: sonar-cta-sheen .9s var(--ease) forwards; }
+@keyframes sonar-cta-sheen {
+  0% { left: -45%; opacity: 0; }
+  25% { opacity: 1; }
+  100% { left: 120%; opacity: 0; }
+}
+
+/* Mini color orb as the trailing icon — the same ball, pocket-sized. */
+.sonar-cta .sonar-orb {
+  --so-size: 26px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px -3px rgb(168 100 200 / 55%);
+}
+.sonar-cta:hover .sonar-orb { transform: scale(1.12) rotate(20deg); }
 .sonar-cta--hero { pointer-events: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .button.sonar-cta::before { animation: none !important; }
+  .button.sonar-cta::after { display: none; }
+  .button.sonar-cta,
+  .sonar-cta .sonar-orb { transition: none !important; }
+  .sonar-cta:hover .sonar-orb { transform: none; }
+}
 
 .services-page { padding-bottom: 10rem; }
 .service-band { --service-accent: var(--signal); display: grid; grid-template-columns: 110px 1fr .8fr; gap: 4vw; padding: 4rem 0; border-top: 1px solid var(--line); }
@@ -321,9 +397,9 @@
   .wordmark { font-size: .76rem; }
   .hero { min-height: 820px; }
   .hero__content { min-height: 820px; padding-top: 7rem; padding-bottom: 2.5rem; }
-  .hero__visual { inset: 7% -18% 48%; opacity: .92; }
-  .runtime-fallback { width: min(78vw, 360px); }
-  .hero__kicker { margin-bottom: 1rem; max-width: 220px; line-height: 1.5; }
+  .hero__visual { inset: -13% -24% auto auto; width: min(118vw, 470px); height: min(118vw, 470px); opacity: 1; pointer-events: none; }
+  .runtime-fallback { inset: 0; left: auto; top: auto; transform: none; width: 100%; }
+  .hero__kicker { margin-bottom: 1rem; max-width: 150px; line-height: 1.5; }
   .hero h1 { font-size: clamp(3.5rem, 17vw, 5.7rem); line-height: .8; }
   .hero h1 span:last-child { text-align: left; }
   .hero__bottom { margin-top: 2.5rem; }
