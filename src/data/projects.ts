@@ -12,15 +12,15 @@ export type Project = {
   technologies: string[];
   services: string[];
   heroTone: string;
+  visualStack?: string[];
   gallery: { title: string; caption: string; tone: string; image?: string }[];
-  metrics: { value: string; label: string; placeholder: true }[];
+  metrics: { value: string; label: string }[];
   challenge: string;
   solution: string;
   architecture: { label: string; detail: string }[];
   results: string;
   testimonial: null;
   featured: boolean;
-  demo: true;
   techStack: string[];
   caseStudy: {
     overview: string;
@@ -51,9 +51,9 @@ export const projects: Project[] = [
       { title: "Practice dashboard", caption: "Doctors move from information to action without friction.", tone: "mint", image: "/Med3.png" },
     ],
     metrics: [
-      { value: "Role-aware", label: "Clinical workflows", placeholder: true },
-      { value: "AI-assisted", label: "Follow-up suggestions", placeholder: true },
-      { value: "Event-driven", label: "Operations layer", placeholder: true },
+      { value: "Role-aware", label: "Clinical workflows" },
+      { value: "AI-assisted", label: "Follow-up suggestions" },
+      { value: "Event-driven", label: "Operations layer" },
     ],
     challenge: "Healthcare operations are spread across bookings, records, and patient communication. Teams needed a single system that prioritized urgency without making the workflow harder to follow.",
     solution: "The platform consolidates patient signals, operational tasks, and recommendation logic into a role-aware workflow that keeps clinicians focused on the next best action.",
@@ -66,7 +66,6 @@ export const projects: Project[] = [
     results: "This case study demonstrates how health operations can be simplified with a thoughtful, clinician-first product system built around trust, speed, and clarity.",
     testimonial: null,
     featured: true,
-    demo: true,
     techStack: ["REACT NATIVE", "NODE.JS", "POSTGRESQL", "AI"],
     caseStudy: {
       overview: "MedAlerto is an all-in-one healthcare SaaS platform that simplifies workflows for modern medical practices. It unifies prescriptions, appointment scheduling, and patient history into a single intuitive interface. The system features AI-based suggestions to help doctors save time, manage follow-ups, and handle patient care efficiently.",
@@ -95,9 +94,9 @@ export const projects: Project[] = [
       { title: "Chocolates section", caption: "A dedicated category supports the broader brand experience.", tone: "sand", image: "/M3.png" },
     ],
     metrics: [
-      { value: "Conversion-first", label: "Storefront architecture", placeholder: true },
-      { value: "Dual catalog", label: "Fragrances + chocolates", placeholder: true },
-      { value: "Integrated", label: "Payment gateways", placeholder: true },
+      { value: "Conversion-first", label: "Storefront architecture" },
+      { value: "Dual catalog", label: "Fragrances + chocolates" },
+      { value: "Integrated", label: "Payment gateways" },
     ],
     challenge: "The brand needed a storefront that felt premium, trustworthy, and conversion-oriented while conveying a distinct luxury identity across both fragrances and chocolate products.",
     solution: "A high-end storefront architecture paired curated product storytelling with a conversion-friendly buying flow, creating a polished digital retail experience for a premium brand.",
@@ -110,7 +109,6 @@ export const projects: Project[] = [
     results: "The experience is structured to make premium products feel aspirational while still making the buying path clear and efficient.",
     testimonial: null,
     featured: true,
-    demo: true,
     techStack: ["NEXT.JS", "E-COMMERCE", "PAYMENTS"],
     caseStudy: {
       overview: "An e-commerce platform built for a premium perfume and chocolate brand based in Karachi, Sindh. The platform highlights the brand's signature fragrances, new arrivals, and top sellers alongside a dedicated chocolates section, providing a seamless shopping experience.",
@@ -121,46 +119,44 @@ export const projects: Project[] = [
   },
   {
     id: "03",
-    category: "LUXURY MARKETPLACE",
+    category: "E-COMMERCE / LUXURY TIMEPIECES",
     status: "ACTIVE",
-    title: "WATCHFINDER",
-    slug: "watchfinder",
-    liveUrl: "https://www.watchfinder.com/",
-    shortDescription: "A search and filtering platform for luxury timepieces.",
-    detailedDescription: "A comprehensive luxury watch marketplace allowing users to buy, sell, and trade premium timepieces. Features advanced multi-variable filtering by brand, series, case size, price, and year across inventory from over 50 leading brands.",
-    clientType: "Luxury Retail / Client Project",
-    year: "2024",
-    technologies: ["React", "Advanced Search Algorithms", "Complex Database Filtering"],
-    services: ["Frontend Engineering", "Complex Search Filtering"],
+    title: "WATCHCENTER",
+    slug: "watchcenter",
+    shortDescription: "A premium watch retail platform for browsing, comparing, and buying timepieces.",
+    detailedDescription: "WatchCenter is a dedicated e-commerce platform for luxury and everyday timepieces. It brings curated collections, rich product detail pages, and structured filtering by brand, movement, case size, and price into one storefront, supported by a smooth cart and checkout experience.",
+    clientType: "Luxury Retail / E-commerce",
+    year: "2025",
+    technologies: ["React", "Node.js", "E-commerce Architecture", "Payment Gateway Integration"],
+    services: ["Web Development", "E-commerce Architecture", "Frontend Engineering"],
     heroTone: "lime",
     gallery: [
-      { title: "Inventory discovery", caption: "Buyers can quickly narrow premium options by the filters that matter.", tone: "lime" },
-      { title: "Brand exploration", caption: "Inventory feels curated while remaining deeply searchable.", tone: "mint" },
-      { title: "Luxury detail view", caption: "Each listing communicates craft, provenance, and value clearly.", tone: "ice" },
+      { title: "Curated collections", caption: "Timepieces are presented with premium product storytelling.", tone: "lime", image: "/W2.png" },
+      { title: "Product detail", caption: "Specifications, provenance, and pricing stay clear and comparable.", tone: "mint", image: "/W3.png" },
+      { title: "Storefront experience", caption: "Browsing, filtering, and buying flow without friction.", tone: "ice", image: "/W4.png" },
     ],
     metrics: [
-      { value: "Multi-variable", label: "Filtering system", placeholder: true },
-      { value: "50+ brands", label: "Inventory coverage", placeholder: true },
-      { value: "Precision-first", label: "Search experience", placeholder: true },
+      { value: "Conversion-first", label: "Storefront architecture" },
+      { value: "Structured", label: "Catalog filtering" },
+      { value: "Integrated", label: "Checkout flow" },
     ],
-    challenge: "Luxury inventory is highly varied and often difficult to navigate at scale. Buyers needed a way to filter with precision without losing the feeling of exclusivity and curation.",
-    solution: "The marketplace combines a premium product presentation with high-utility filtering logic, making large inventory sets feel organized, intuitive, and decisive.",
+    challenge: "Watch buyers compare across brands, movement types, sizes, and price points. The storefront needed to make deep catalogs feel curated and easy to navigate while keeping the buying path short and trustworthy.",
+    solution: "A conversion-focused storefront combines premium product presentation with structured filtering and a streamlined checkout, so large catalogs feel organized and purchases feel confident.",
     architecture: [
-      { label: "Search layer", detail: "Advanced filtering by brand, size, price, and year" },
-      { label: "Inventory model", detail: "Structured dataset for premium watch inventory" },
-      { label: "Detail surfaces", detail: "Inspect and compare leading timepieces clearly" },
-      { label: "UX clarity", detail: "A polished experience for browsing luxury inventory" },
+      { label: "Catalog layer", detail: "Structured product data with filtering by brand, movement, and price" },
+      { label: "Storefront UX", detail: "Premium product pages and collection-driven browsing" },
+      { label: "Cart and checkout", detail: "Streamlined purchase flow with payment gateway integration" },
+      { label: "Content layer", detail: "Editable collections and product storytelling surfaces" },
     ],
-    results: "The system is designed to help buyers navigate high-value inventory with much more confidence and control than a basic marketplace flow would allow.",
+    results: "The platform is structured to make browsing a large timepiece catalog feel curated and decisive, with a buying path that stays clear from discovery to checkout.",
     testimonial: null,
     featured: true,
-    demo: true,
-    techStack: ["REACT", "SEARCH", "DATABASE"],
+    techStack: ["REACT", "NODE.JS", "E-COMMERCE", "PAYMENTS"],
     caseStudy: {
-      overview: "A comprehensive luxury watch marketplace allowing users to buy, sell, and trade premium timepieces. Features advanced multi-variable filtering by brand, series, case size, price, and year across inventory from over 50 leading brands.",
-      clientType: "Luxury Retail / Client Project",
-      services: "Frontend Engineering · Complex Search Filtering",
-      detailedTechnology: "React, Custom Filtering Algorithms, Database Indexing",
+      overview: "WatchCenter is a dedicated e-commerce platform for luxury and everyday timepieces. It brings curated collections, rich product detail pages, and structured filtering by brand, movement, case size, and price into one storefront, supported by a smooth cart and checkout experience.",
+      clientType: "Luxury Retail / E-commerce",
+      services: "Web Development · E-commerce Architecture · Frontend Engineering",
+      detailedTechnology: "React, Node.js, E-commerce Architecture, Payment Gateway Integration",
     },
   },
   {
@@ -178,14 +174,14 @@ export const projects: Project[] = [
     services: ["AI Voice Systems", "API Integration", "Dashboard Development"],
     heroTone: "orange",
     gallery: [
-      { title: "Voice orchestration", caption: "Calls are automated with structured outcomes and monitoring.", tone: "orange" },
-      { title: "CRM pipeline", caption: "Business workflows stay connected to customer interactions.", tone: "violet" },
-      { title: "Automation controls", caption: "Teams track agents, calls, and business outcomes in one place.", tone: "teal" },
+      { title: "Voice orchestration", caption: "Calls are automated with structured outcomes and monitoring.", tone: "orange", image: "/U1.png" },
+      { title: "CRM pipeline", caption: "Business workflows stay connected to customer interactions.", tone: "violet", image: "/U2.png" },
+      { title: "Automation controls", caption: "Teams track agents, calls, and business outcomes in one place.", tone: "teal", image: "/U3.png" },
     ],
     metrics: [
-      { value: "Low-latency", label: "Voice agent flows", placeholder: true },
-      { value: "Two-way", label: "Inbound + outbound calls", placeholder: true },
-      { value: "CRM-connected", label: "Workflow automation", placeholder: true },
+      { value: "Low-latency", label: "Voice agent flows" },
+      { value: "Two-way", label: "Inbound + outbound calls" },
+      { value: "CRM-connected", label: "Workflow automation" },
     ],
     challenge: "Businesses needed a reliable way to automate voice-led customer interactions without losing control, oversight, or natural conversation quality.",
     solution: "The platform blends low-latency conversation design, CRM connectivity, and operational monitoring so voice automation can support real business outcomes at scale.",
@@ -198,7 +194,6 @@ export const projects: Project[] = [
     results: "The system is structured to help service businesses automate calls intelligently while keeping humans in the loop where real decisions matter.",
     testimonial: null,
     featured: true,
-    demo: true,
     techStack: ["AI", "VOICE", "CRM INTEGRATION"],
     caseStudy: {
       overview: "A conversational AI voice agent platform enabling businesses to build, deploy, and monitor low-latency voice agents. Handles inbound and outbound calls, automates customer workflows, and integrates directly with existing CRMs.",
@@ -221,15 +216,18 @@ export const projects: Project[] = [
     technologies: ["WebGL", "Canvas", "Audio", "React"],
     services: ["Interactive Storytelling", "Creative Frontend Engineering", "Canvas/WebGL Development"],
     heroTone: "sand",
+    visualStack: ["/SANTIONI.png", "/S1.png", "/S2.png", "/S3.png", "/S4.png"],
     gallery: [
-      { title: "Story panels", caption: "Narrative frames guide the audience through the brand world.", tone: "sand" },
-      { title: "Collection mode", caption: "The product catalog stays elegant and easy to browse.", tone: "ice" },
-      { title: "Audio experience", caption: "Atmospheric sound and motion reinforce product storytelling.", tone: "violet" },
+      { title: "Story panels", caption: "Narrative frames guide the audience through the brand world.", tone: "sand", image: "/S1.png" },
+      { title: "Collection mode", caption: "The product catalog stays elegant and easy to browse.", tone: "ice", image: "/S2.png" },
+      { title: "Audio experience", caption: "Atmospheric sound and motion reinforce product storytelling.", tone: "violet", image: "/S3.png" },
+      { title: "Ink artwork", caption: "Custom illustrated panels carry the brand's visual identity.", tone: "sand", image: "/S4.png" },
+      { title: "Brand visual", caption: "The signature artwork anchors the story and the collection.", tone: "ice" },
     ],
     metrics: [
-      { value: "Hybrid", label: "Story + catalog modes", placeholder: true },
-      { value: "Canvas/WebGL", label: "Narrative rendering", placeholder: true },
-      { value: "Audio-visual", label: "Storytelling layers", placeholder: true },
+      { value: "Hybrid", label: "Story + catalog modes" },
+      { value: "Canvas/WebGL", label: "Narrative rendering" },
+      { value: "Audio-visual", label: "Storytelling layers" },
     ],
     challenge: "Luxury storytelling needs to feel premium, tactile, and immersive without becoming heavy or difficult to navigate for first-time users.",
     solution: "A hybrid narrative UI blends editorial motion, illustrated panels, and premium product discovery into a modern experience that feels both cinematic and practical.",
@@ -242,7 +240,6 @@ export const projects: Project[] = [
     results: "The experience shows how high-end product storytelling can feel cinematic while still delivering direct product discovery and branded clarity.",
     testimonial: null,
     featured: true,
-    demo: true,
     techStack: ["WEBGL", "CANVAS", "AUDIO", "REACT"],
     caseStudy: {
       overview: "A digital brand experience built for Santioni Spirits that merges luxury product showcasing with an interactive graphic novel narrative. Features custom ink artwork, panel navigation, audio-visual storytelling, and seamless toggling between story and collection modes.",

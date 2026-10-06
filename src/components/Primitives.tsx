@@ -14,10 +14,6 @@ export function TextLink({ href, children, onClick }: { href: string; children: 
   return <Link href={href} className="text-link" onClick={onClick}><span>{children}</span><ArrowRight size={15} /></Link>;
 }
 
-export function DemoFlag() {
-  return <span className="demo-flag">Demo content</span>;
-}
-
 /** External destination with a live indicator and a signal-red wipe on hover. */
 export function PortfolioButton({ href, children, meta }: { href: string; children: ReactNode; meta?: string }) {
   return (

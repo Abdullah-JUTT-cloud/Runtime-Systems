@@ -129,7 +129,7 @@ export function ServiceDetail({ service }: { service: Service }) {
         </div>
       </section>
 
-      {related.length > 0 && <section className="related-work container section-space"><SectionLabel>Related demo systems</SectionLabel><div>{related.map((project) => <Link href={`/work/${project.slug}`} key={project.slug}><span>{project.category}</span><h3>{project.title}</h3><p>{project.shortDescription}</p><b>Open case →</b></Link>)}</div></section>}
+      {related.length > 0 && <section className="related-work container section-space"><SectionLabel>Related case studies</SectionLabel><div>{related.map((project) => <Link href={`/work/${project.slug}`} key={project.slug}><span>{project.category}</span><h3>{project.title}</h3><p>{project.shortDescription}</p><b>Open case →</b></Link>)}</div></section>}
       <ClosingCTA title={`Put ${service.shortTitle.toLowerCase()} into motion.`} />
     </>
   );

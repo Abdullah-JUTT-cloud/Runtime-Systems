@@ -1,13 +1,13 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { projects } from "../data/projects";
-import { DemoFlag } from "./Primitives";
+
 
 export function projectAssetFor(project: typeof projects[number]) {
   const slugMap: Record<string, string> = {
     "medalerto-os": "/MedAlerto.png",
     "maaz-safder": "/MaazSafder.png",
-    "watchfinder": "/Watchfinder.png",
+    "watchcenter": "/W1.png",
     urvo: "/urvo.png",
     "santioni-spirits": "/SANTIONI.png",
   };
@@ -22,6 +22,15 @@ export function ProjectVisual({ project, index = 0 }: { project: typeof projects
       <div className="project-visual__screen">
         <img src={projectAssetFor(project)} alt={project.title} className="project-visual__image" />
       </div>
+    </div>
+  );
+}
+
+/** Single primary image shown vertical (uncropped) for portrait-first projects. */
+export function ProjectVisualVertical({ project }: { project: typeof projects[number] }) {
+  return (
+    <div className={`project-visual project-visual--vertical project-visual--${project.slug} tone-${project.heroTone}`} aria-hidden="true">
+      <img src={projectAssetFor(project)} alt={project.title} className="project-visual__stack-image" />
     </div>
   );
 }
@@ -124,7 +133,7 @@ export function ProjectShowcase() {
       >
         {featured.map((project, index) => (
           <article className="project-panel" key={project.slug} data-reveal data-reveal-delay={index * 90}>
-            <div className="project-panel__meta"><span>0{index + 1}</span><span>{project.category}</span><DemoFlag /></div>
+            <div className="project-panel__meta"><span>0{index + 1}</span><span>{project.category}</span></div>
             <ProjectVisual project={project} index={index} />
             <div className="project-panel__copy">
               <h3>{project.title}</h3>
