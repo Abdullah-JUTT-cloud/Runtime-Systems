@@ -26,8 +26,7 @@ export const navigation = [
 export const socials = [
   { label: "Instagram", href: "https://www.instagram.com/runtimesystems/", placeholder: false },
   { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61594981626249", placeholder: false },
-  { label: "GitHub", href: "#", placeholder: true },
-  { label: "LinkedIn", href: "#", placeholder: true },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/runtime-systems", placeholder: false },
 ] as const;
 
 export const footerLinks = [
