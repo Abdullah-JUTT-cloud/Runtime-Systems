@@ -1,8 +1,40 @@
 import { win } from "./Sheet";
 
-/* PRODUCT — an interface assembles itself: frame rises, nav slides in, content
-   lines extend, cards land, and the DATA block connects from outside. */
-export function ProductScene() {
+/* PRODUCT — desktop: an interface assembles itself (frame rises, nav slides in,
+   content lines extend, cards land, DATA connects). Compact: the same build
+   arranged for a portrait sheet. */
+export function ProductScene({ compact }: { compact: boolean }) {
+  if (compact) {
+    return (
+      <g>
+        <rect className="sheet-box" x={50} y={54} width={320} height={330}
+          style={{ opacity: win(0, 0.18), transform: `translateY(calc((1 - ${win(0, 0.18)}) * 70px))` }} />
+        <rect className="sheet-box--muted" x={66} y={72} width={288} height={24}
+          style={{ opacity: win(0.16, 0.2), transform: `translateX(calc((1 - ${win(0.16, 0.2)}) * -110px))` }} />
+        {[260, 208, 150].map((w, i) => (
+          <rect key={w} className={i === 0 ? "sheet-inkbar" : "sheet-bar"} x={66} y={126 + i * 28} width={w} height={11}
+            style={{ opacity: win(0.3 + i * 0.07, 0.16), transform: `scaleX(${win(0.3 + i * 0.07, 0.16)})`, transformOrigin: "left", transformBox: "fill-box" }} />
+        ))}
+        {[{ x: 66 }, { x: 214 }].map((card, i) => (
+          <g key={card.x} style={{ opacity: win(0.48 + i * 0.08, 0.18), transform: `translateY(calc((1 - ${win(0.48 + i * 0.08, 0.18)}) * 56px))` }}>
+            <rect className="sheet-box" x={card.x} y={226} width={140} height={96} />
+            <rect className="sheet-accentbar" x={card.x + 14} y={242} width={32} height={7} />
+            <rect className="sheet-bar" x={card.x + 14} y={258} width={112} height={7} />
+            <rect className="sheet-bar" x={card.x + 14} y={274} width={80} height={7} />
+          </g>
+        ))}
+        <path className="sheet-line--accent" d="M210 384 V446 H250" pathLength={1} fill="none"
+          style={{ strokeDasharray: "1px", strokeDashoffset: `calc(1px - ${win(0.62, 0.18)} * 1px)` }} />
+        <rect className="sheet-accentbox" x={250} y={420} width={104} height={50} style={{ opacity: win(0.66, 0.14) }} />
+        <text className="sheet-text sheet-text--accent" x={302} y={450} textAnchor="middle">DATA</text>
+        <g style={{ opacity: win(0.78, 0.14) }}>
+          <rect className="sheet-box--ink" x={60} y={420} width={110} height={50} />
+          <text className="sheet-text sheet-text--inv" x={115} y={450} textAnchor="middle">RELEASE</text>
+        </g>
+        <text className="sheet-text sheet-text--muted" x={210} y={530} textAnchor="middle" style={{ opacity: win(0.85, 0.15) }}>SURFACE / FLOW / RELEASE</text>
+      </g>
+    );
+  }
   return (
     <g>
       <rect className="sheet-box" x={120} y={150} width={420} height={330}

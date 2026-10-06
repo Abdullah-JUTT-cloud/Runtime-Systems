@@ -12,7 +12,7 @@ import type { Service } from "../../data/services";
 
 export const win = (start: number, dur: number) => `clamp(0, (var(--p) - ${start}) / ${dur}, 1)`;
 
-export function Sheet({ service, index, children }: { service: Service; index: number; children: ReactNode }) {
+export function Sheet({ service, index, viewBox, children }: { service: Service; index: number; viewBox: string; children: ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [live, setLive] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -56,7 +56,7 @@ export function Sheet({ service, index, children }: { service: Service; index: n
       <span className="sheet-tick sheet-tick--bl" />
       <span className="sheet-tick sheet-tick--br" />
       <i className="engine-sheet__progress" />
-      <svg className="engine-sheet__svg" viewBox="0 0 860 700">{children}</svg>
+      <svg className="engine-sheet__svg" viewBox={viewBox}>{children}</svg>
       <div className="engine-sheet__block">
         <div><span>DWG NO</span><b>RS-0{index + 1}/{String.fromCharCode(65 + index)}</b></div>
         <div><span>ENGINE</span><b>{service.shortTitle.toUpperCase()}</b></div>
